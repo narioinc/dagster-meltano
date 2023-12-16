@@ -1,0 +1,10 @@
+*.jsonl
+dag-venv
+__pycache__
+tmp*
+cube/.cubestore
+cube/.cubestore/*
+.meltano
+.parquet
+.jsonl
+cube/.env

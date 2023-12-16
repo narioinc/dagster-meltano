@@ -1,0 +1,35 @@
+version: 1
+default_environment: dev
+project_id: 1e2a9369-ff0c-4df8-bc2c-8a35226b469a
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-github
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-github.git
+    config:
+      repositories:
+      - narioinc/cube-helm
+      start_date: '2023-01-01'
+    select:
+    - commits.url
+    - commits.sha
+    - commits.commit_timestamp
+  loaders:
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      user: meltano
+      database: postgres
+      add_record_metadata: true
+      host: localhost
+  - name: target-parquet
+    variant: hotgluexyz
+    pip_url: git+https://gitlab.com/hotglue/target-parquet.git
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
